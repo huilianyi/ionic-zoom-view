@@ -24,8 +24,14 @@
             animation: "slide-in-up" });
 
           scope.showZoomView = function () {
-            scope.zoomViewModal.show();
-            scope.ngSrc = attr.zoomSrc;
+              //如果是安卓，则打开inappbrowser，这样可以pinch zoom用手指缩放
+              if (ionic.Platform.isAndroid()){
+                  cordova.InAppBrowser.open(attr.zoomSrc, '_blank', 'location=no,toolbar=yes,toolbarposition=top,closebuttoncaption=返回汇联易');
+              }
+              else{
+                  scope.zoomViewModal.show();
+                  scope.ngSrc = attr.zoomSrc;
+              }
           };
 
           scope.closeZoomView = function () {
